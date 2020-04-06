@@ -32,7 +32,7 @@ switch (difficulty) {
   case 2:
   toBonus = 50;
   break;
-  
+
 }
 
 console.log('Difficolta:',difficulty,'range fino a:',toBonus);
@@ -70,11 +70,11 @@ while (gameCheck == false) {
     }
 
     else if ( isNaN(userNumber) ) {
-      alert('Non hai inserito un numero');
+      alert('Ma lo stai facendo di proposito...? Non hai inserito un numero.');
     }
 
     else if ( userNumberList.includes(userNumber) == true ){
-      alert('Attenzione, il numero è stato già inserito, si prega di digitarlo dinuovo');
+      alert('Volevi ehhh? Il numero è stato già inserito, si prega di digitarlo dinuovo');
     } 
 
     else if ( userNumberList.includes(userNumber) == false ){
@@ -96,12 +96,12 @@ while (gameCheck == false) {
     // Winning Condiction
     else{
       if(userNumberList.length == (toBonus - computerNumber.length)){
-      alert('Complimenti, hai totalizzato il massimo dei punti!')
+      alert('Complimenti, hai totalizzato il massimo dei punti, vai a festeggiare che stasera si scope (termine tecnico non pensare a male!')
       userNumberCheck = true;
       }
         // Go Ahed Condiction
         else{
-        alert('Complimenti, il numero digitato è corretto! Mancano altri ' + (( (toBonus - computerNumber.length) - userNumberList.length)) + ' numeri per vincere')
+        alert('Complimenti, il numero digitato è corretto! Mancano altri ' + (( (toBonus - computerNumber.length) - userNumberList.length)) + ' numeri per vincere, coraggio!')
         userNumberCheck = false;
         }
     }
