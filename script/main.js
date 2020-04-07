@@ -10,11 +10,10 @@
 // con difficoltà 2=> tra 1 e 50
 
 var computerNumber = [];
-var computerNumberList = 16;
-var computerRandom;
+var computerLen = 16;
 var userNumber = 0;
-var gameCheck = false;
-var userNumberCheck = false;
+var gameExit = false;
+var checkDigit = false;
 var userNumberList = [];
 var difficulty = '';
 var toBonus = 0;
@@ -30,26 +29,31 @@ switch (difficulty) {
     toBonus = 80;
     break;
   case 2:
-  toBonus = 50;
-  break;
+    toBonus = 50;
+    break;
+  // DEBUG
+  case 99:
+    toBonus = 20;
+    break;
+  
 
 }
 
 console.log('Difficolta:',difficulty,'range fino a:',toBonus);
 
-computerNumber = randomNumber(computerNumber,computerNumberList);
+computerNumber = randomNumber(computerNumber,computerLen);
 console.log('Ecco la lista delle bombe', computerNumber);
 
 // This function gets the computer's random numbers
-function randomNumber (number,computerList){
+function randomNumber (number,list){
   number = [];
-  for (var i = 0; i < computerList; i++){
-    computerRandom = ( Math.floor( (Math.random() * toBonus) + 1 ) ) ;
+  for (var i = 0; i < list; i++){
+    random = ( Math.floor( (Math.random() * toBonus) + 1 ) ) ;
     
-    if (number.includes(computerRandom) == false) {
-      number.push(computerRandom);
+    if (number.includes(random) == false) {
+      number.push(random);
     } else {
-      i += - 1;
+      i--;
     }
 
   }
@@ -57,10 +61,10 @@ function randomNumber (number,computerList){
 }
 
 /* User Cicle */
-while (gameCheck == false) {
+while (gameExit == false) {
 
   /* Begin Check on User Number */
-  while (userNumberCheck == false){
+  while (checkDigit == false){
     userNumber = parseInt(prompt('Inserisci un numero da 1 a ' + toBonus));
     console.log('Hai scelto il numero', userNumber);
     
@@ -79,32 +83,36 @@ while (gameCheck == false) {
 
     else if ( userNumberList.includes(userNumber) == false ){
       userNumberList.push(userNumber);
-      console.log("Storico delle scelte dell'utente",userNumberList);
-      userNumberCheck = true;
+      console.log("Storico Inserimenti",userNumberList);
+      checkDigit = true;
     }
     /* End User Number Validation */
     
   }
   /* End Check on User Number */
 
+  
   /* Begin Check User Number with Computer Number */
-  // Losing Condiction
+
+  // You Lose Condiction
   if (computerNumber.includes(userNumber) == true){
-    console.log('!! YOU LOSE !! Hai totalizzato: ' + ((userNumberList.length) - 1) + ' punti');
-    gameCheck = true;
+    console.log('*** YOU LOSE *** \n Hai totalizzato: ' + ((userNumberList.length) - 1) + ' punti');
+    gameExit = true;
   } 
-    // Winning Condiction
+    // You win Condiction
     else{
       if(userNumberList.length == (toBonus - computerNumber.length)){
-      alert('Complimenti, hai totalizzato il massimo dei punti, vai a festeggiare che stasera si scope (termine tecnico non pensare a male!')
-      userNumberCheck = true;
+        console.log('*** YOU WIN ***');    
+        alert('Complimenti, hai totalizzato il massimo dei punti,  vai a festeggiare che stasera si scope \n (termine tecnico non pensare a male!)')
+        gameExit = true;
       }
         // Go Ahed Condiction
         else{
-        alert('Complimenti, il numero digitato è corretto! Mancano altri ' + (( (toBonus - computerNumber.length) - userNumberList.length)) + ' numeri per vincere, coraggio!')
-        userNumberCheck = false;
+          alert('Mancano altri ' + (( (toBonus - computerNumber.length) - userNumberList.length)) + ' numeri per vincere, coraggio!')
+          checkDigit = false;
         }
     }
+
   /* End Check User Number with Computer Number */
   }
 
